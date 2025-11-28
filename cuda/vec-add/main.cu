@@ -25,7 +25,7 @@ void vecAdd(float *A_h, float *B_h, float *C_h, int n) {
 	const int num_threads_per_block = 256;
 	vecAddKernel<<<num_blocks, num_threads_per_block>>>(A_d, B_d, C_d, n);
 
-	cudaMemcpy(C_h, C_d, size, cudaMemcpyDeviceToHost)
+	cudaMemcpy(C_h, C_d, size, cudaMemcpyDeviceToHost);
 
 	cudaFree(A_d);
 	cudaFree(B_d);
