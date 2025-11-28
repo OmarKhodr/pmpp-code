@@ -1,4 +1,4 @@
-#include <iostream>
+#include <stdio.h>
 
 // Compute vector sum C = A + B
 // Each thread performs one pair-wise addition
@@ -33,5 +33,25 @@ void vecAdd(float *A_h, float *B_h, float *C_h, int n) {
 }
 
 int main(int argc, const char *argv[]) {
+	cudaDeviceSynchorize();
+
+	printf("Initializing...\n");
+
+	// Allocate memory and initialize data
+	unsigned int N = (argc > 1) ? (atoi(argv[1]) : 32e6);
+	double* a = (double*) malloc(N * sizeof(double));
+	double* b = (double*) malloc(N * sizeof(double));
+	double* c = (double*) malloc(N * sizeof(double));
+	for (unsigned int i = 0; i < N; ++i) {
+		a[i] = rand();
+		b[i] = rand();
+	}
+
+	printf("Calling vec add\n");
+
+	vecAdd(a, b, c, N);
+
+	printf("Completed vec add\n");
+
 	return 0;
 }
