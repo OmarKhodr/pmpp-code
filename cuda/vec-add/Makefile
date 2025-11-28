@@ -1,7 +1,7 @@
 
 NVCC    = nvcc
 OBJ     = main.o
-EXE     = vecmax
+EXE     = vecadd
 
 
 default: $(EXE)
