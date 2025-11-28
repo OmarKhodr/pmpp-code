@@ -38,7 +38,7 @@ int main(int argc, const char *argv[]) {
 	printf("Initializing...\n");
 
 	// Allocate memory and initialize data
-	unsigned int N = (argc > 1) ? (atoi(argv[1]) : 32e6);
+	unsigned int N = (argc > 1) ? atoi(argv[1]) : 32e6;
 	float* a = (float*) malloc(N * sizeof(float));
 	float* b = (float*) malloc(N * sizeof(float));
 	float* c = (float*) malloc(N * sizeof(float));
