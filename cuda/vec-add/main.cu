@@ -39,9 +39,9 @@ int main(int argc, const char *argv[]) {
 
 	// Allocate memory and initialize data
 	unsigned int N = (argc > 1) ? (atoi(argv[1]) : 32e6);
-	double* a = (double*) malloc(N * sizeof(double));
-	double* b = (double*) malloc(N * sizeof(double));
-	double* c = (double*) malloc(N * sizeof(double));
+	float* a = (float*) malloc(N * sizeof(float));
+	float* b = (float*) malloc(N * sizeof(float));
+	float* c = (float*) malloc(N * sizeof(float));
 	for (unsigned int i = 0; i < N; ++i) {
 		a[i] = rand();
 		b[i] = rand();
