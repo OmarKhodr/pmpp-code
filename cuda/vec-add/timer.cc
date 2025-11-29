@@ -33,7 +33,7 @@ void Timer::Start() {
 }
 
 void Timer::Stop() {
-	end = std::chrono_steady_clock::now();
+	end_ = std::chrono_steady_clock::now();
 	running_ = false;
 }
 
