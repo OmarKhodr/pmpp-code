@@ -19,7 +19,7 @@ public:
 		double ElapsedMs() const;
 
 		// Prints: "<label>: <time> ms"
-		void Print(std::string_view label, PrintColor color) const;
+		void Print(std::string_view label, PrintColor color = PrintColor::None) const;
 
 private:
 		std::chrono::steady_clock::time_point start_{};

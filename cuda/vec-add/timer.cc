@@ -44,8 +44,7 @@ double Timer::ElapsedMs() const {
 	return std::chrono::duration<double, std::milli>(stop_time - start_).count();
 }
 
-void Timer::Print(std::string_view label,
-	                PrintColor color = PrintColor::None) const {
+void Timer::Print(std::string_view label, PrintColor color) const {
 	const double ms = ElapsedMs();
 	const char* code = ColorCode(color);
 	if (*code != '\0') {

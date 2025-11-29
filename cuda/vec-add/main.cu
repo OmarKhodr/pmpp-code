@@ -13,7 +13,7 @@ void vecAddKernel(float *A, float *B, float *C, int n) {
 }
 
 void vecAdd(float *A_h, float *B_h, float *C_h, int n) {
-	Timer timer;
+	ko::Timer timer;
 
 	int size = n * sizeof(float);
 
