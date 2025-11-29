@@ -53,5 +53,9 @@ int main(int argc, const char *argv[]) {
 
 	printf("Completed vec add\n");
 
+	free(a);
+	free(b);
+	free(c);
+
 	return 0;
 }
