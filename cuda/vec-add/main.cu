@@ -60,13 +60,13 @@ int main(int argc, const char *argv[]) {
 	timer.Start();
 	vecAddCpu(a, b, c_cpu, N);
 	timer.Stop();
-	timer.Print("CPU Time", PrintColor::Cyan);
+	timer.Print("CPU Time", ko::PrintColor::Cyan);
 
 	// Compute on GPU
 	timer.Start();
 	vecAddGpu(a, b, c_gpu, N);
 	timer.Stop();
-	timer.Print("GPU Time", PrintColor::DarkGreen);
+	timer.Print("GPU Time", ko::PrintColor::DarkGreen);
 
 	// Verify correctness of result
 	for (int i = 0; i < N; ++i) {
