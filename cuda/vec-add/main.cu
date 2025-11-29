@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "timer.h"
+
 // Compute vector sum C = A + B
 // Each thread performs one pair-wise addition
 __global__
@@ -11,6 +13,8 @@ void vecAddKernel(float *A, float *B, float *C, int n) {
 }
 
 void vecAdd(float *A_h, float *B_h, float *C_h, int n) {
+	Timer timer;
+
 	int size = n * sizeof(float);
 
 	float *A_d, *B_d, *C_d;
