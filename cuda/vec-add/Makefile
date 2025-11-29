@@ -1,4 +1,5 @@
 NVCC    = nvcc
+ARCH    = -arch=sm_52
 CXX     = g++
 OBJ     = main.o timer.o
 EXE     = vecadd
@@ -7,7 +8,7 @@ default: $(EXE)
 
 # Build CUDA source files (.cu)
 %.o: %.cu
-	$(NVCC) -c -o $@ $<
+	$(NVCC) $(ARCH) -c -o $@ $<
 
 # Build C++ source files (.cc)
 %.o: %.cc
@@ -15,7 +16,7 @@ default: $(EXE)
 
 # Link with nvcc (important for CUDA runtime libs)
 $(EXE): $(OBJ)
-	$(NVCC) $(OBJ) -o $(EXE)
+	$(NVCC) $(ARCH) $(OBJ) -o $(EXE)
 
 clean:
 	rm -rf $(OBJ) $(EXE)
