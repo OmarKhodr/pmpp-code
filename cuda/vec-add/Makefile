@@ -1,7 +1,7 @@
 NVCC    = nvcc
 ARCH    = -arch=sm_52
 CXX     = g++
-OBJ     = main.o timer.o
+OBJ     = main.o timer.o kernel.o
 EXE     = vecadd
 
 default: $(EXE)
