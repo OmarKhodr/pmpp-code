@@ -2,6 +2,12 @@
 
 #include "timer.h"
 
+void vecAddCpu(float *A, float *B, float *C, int n) {
+	for (int i = 0; i < n; ++i) {
+		C[i] = A[i] + B[i];
+	}
+}
+
 // Compute vector sum C = A + B
 // Each thread performs one pair-wise addition
 __global__
@@ -12,7 +18,7 @@ void vecAddKernel(float *A, float *B, float *C, int n) {
 	}
 }
 
-void vecAdd(float *A_h, float *B_h, float *C_h, int n) {
+void vecAddGpu(float *A_h, float *B_h, float *C_h, int n) {
 	ko::Timer timer;
 
 	int size = n * sizeof(float);
@@ -39,27 +45,45 @@ void vecAdd(float *A_h, float *B_h, float *C_h, int n) {
 int main(int argc, const char *argv[]) {
 	cudaDeviceSynchronize();
 
-	std::cout << "Initializing..." << std::endl;
-
 	// Allocate memory and initialize data
 	unsigned int N = (argc > 1) ? atoi(argv[1]) : 32e6;
 	float* a = (float*) malloc(N * sizeof(float));
 	float* b = (float*) malloc(N * sizeof(float));
-	float* c = (float*) malloc(N * sizeof(float));
-	for (unsigned int i = 0; i < N; ++i) {
+	float* c_cpu = (float*) malloc(N * sizeof(float));
+	float* c_gpu = (float*) malloc(N * sizeof(float));
+	for (int i = 0; i < N; ++i) {
 		a[i] = rand();
 		b[i] = rand();
 	}
 
-	std::cout << "Calling vec add" << std::endl;
+	// Compute on CPU
+	timer.Start();
+	vecAddCpu(a, b, c_cpu, N);
+	timer.Stop();
+	timer.Print("CPU Time", PrintColor::Cyan);
 
-	vecAdd(a, b, c, N);
+	// Compute on GPU
+	timer.Start();
+	vecAddGpu(a, b, c_gpu, N);
+	timer.Stop();
+	timer.Print("GPU Time", PrintColor::DarkGreen);
 
-	std::cout << "Completed vec add" << std::endl;
+	// Verify correctness of result
+	for (int i = 0; i < N; ++i) {
+		float diff = c_cpu[i] - c_gpu[i];
+		float tolerance = 1e9;
+		if (diff > tolerance || -diff > tolerance) {
+			std::cout << "Mismatch at index " << i << " ";
+			std::cout << "(CPU Result = " << c_cpu[i] << ", GPU result = " << c_gpu[i] << ")";
+			std::cout << std::endl;
+			break;
+		}
+	}
 
 	free(a);
 	free(b);
-	free(c);
+	free(c_cpu);
+	free(c_gpu);
 
 	return 0;
 }
