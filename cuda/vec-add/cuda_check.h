@@ -1,6 +1,8 @@
 #ifndef _CUDA_CHECK_H_
 #define _CUDA_CHECK_H_
 
+#include <iostream>
+
 #define CUDA_CHECK(call)                                                    \
     do {                                                                    \
         cudaError_t err = call;                                             \
