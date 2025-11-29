@@ -19,7 +19,6 @@ void vecAddKernel(float *A, float *B, float *C, int n) {
 }
 
 void vecAddGpu(float *A_h, float *B_h, float *C_h, int n) {
-	ko::Timer timer;
 
 	int size = n * sizeof(float);
 
@@ -44,6 +43,7 @@ void vecAddGpu(float *A_h, float *B_h, float *C_h, int n) {
 
 int main(int argc, const char *argv[]) {
 	cudaDeviceSynchronize();
+	ko::Timer timer;
 
 	// Allocate memory and initialize data
 	unsigned int N = (argc > 1) ? atoi(argv[1]) : 32e6;
