@@ -17,6 +17,8 @@ const char* ColorCode(PrintColor c) {
 	  return "\033[1;36m";
 	case PrintColor::None:
 	  return "";
+	default:
+	  return "";
 	}
 }
 
