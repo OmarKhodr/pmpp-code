@@ -22,8 +22,8 @@ public:
 		void Print(std::string_view label, PrintColor color = PrintColor::None) const;
 
 private:
-		clock::time_point start_{};
-		clock::time_point end_{};
+		std::chrono::steady_clock::time_point start_{};
+		std::chrono::steady_clock::time_point end_{};
 		bool running_ = false;
 };
 
