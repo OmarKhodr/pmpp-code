@@ -53,7 +53,7 @@ void matMultGpu(float *A_h, float *B_h, float *C_h, int m, int n, int k) {
 	dim3 num_threads_per_block(32, 32);
 	dim3 num_blocks(
 		(k + num_threads_per_block.x - 1) / num_threads_per_block.x,
-		(m + num_threads_per_block.y - 1) / num_threads_per_block.y,
+		(m + num_threads_per_block.y - 1) / num_threads_per_block.y
 	);
 	matMultKernel<<<num_blocks, num_threads_per_block>>>(A_d, B_d, C_d, m, n, k);
 
