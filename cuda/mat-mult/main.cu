@@ -51,7 +51,7 @@ int main(int argc, const char *argv[]) {
 		float tolerance = 1 / 1000.0;
 		if (diff > tolerance || -diff > tolerance) {
 			std::cout << "Mismatch at index " << i << " ";
-			std::cout << "(CPU Result = " << c_cpu[i] << ", GPU result = " << c_gpu[i] << ", Difference: " << diff << ")")";
+			std::cout << "(CPU Result = " << c_cpu[i] << ", GPU result = " << c_gpu[i] << ", Difference: " << diff << ")";
 			std::cout << std::endl;
 			break;
 		}
