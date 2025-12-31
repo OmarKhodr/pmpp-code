@@ -16,8 +16,6 @@ void matMultKernel(float *A, float *B, float *C, int m, int n, int k) {
 	}
 }
 
-
-
 void matMultGpu(float *A_h, float *B_h, float *C_h, int m, int n, int k) {
 	ko::Timer gpu_timer;
 
