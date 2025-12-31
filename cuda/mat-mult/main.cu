@@ -48,7 +48,7 @@ int main(int argc, const char *argv[]) {
 	// Verify correctness of result
 	for (int i = 0; i < M * N; ++i) {
 		float diff = c_cpu[i] - c_gpu[i];
-		float tolerance = 1e6;
+		float tolerance = 1e3;
 		if (diff > tolerance || -diff > tolerance) {
 			std::cout << "Mismatch at index " << i << " ";
 			std::cout << "(CPU Result = " << c_cpu[i] << ", GPU result = " << c_gpu[i] << ")";
