@@ -18,19 +18,19 @@ int main(int argc, const char *argv[]) {
 	ko::Timer timer;
 
 	// Allocate memory and initialize data
-	unsigned int M = (argc > 1) ? std::atoi(argv[1]) : 1e3;
-	unsigned int N = (argc > 2) ? std::atoi(argv[2]) : 1e3;
-	unsigned int K = (argc > 3) ? std::atoi(argv[3]) : 1e3;
+	unsigned int M = (argc > 1) ? std::atoi(argv[1]) : 200;
+	unsigned int N = (argc > 2) ? std::atoi(argv[2]) : 500;
+	unsigned int K = (argc > 3) ? std::atoi(argv[3]) : 1000;
 	float* a = (float*) malloc(M * K * sizeof(float));
 	float* b = (float*) malloc(K * N * sizeof(float));
 
 	float* c_cpu = (float*) malloc(M * N * sizeof(float));
 	float* c_gpu = (float*) malloc(M * N * sizeof(float));
 	for (int i = 0; i < M * K; ++i) {
-		a[i] = rand();
+		a[i] = rand() * 1.0 / RAND_MAX;
 	}
 	for (int i = 0; i < K * N; ++i) {
-		b[i] = rand();
+		b[i] = rand() * 1.0 / RAND_MAX;
 	}
 
 	// Compute on CPU
@@ -48,7 +48,7 @@ int main(int argc, const char *argv[]) {
 	// Verify correctness of result
 	for (int i = 0; i < M * N; ++i) {
 		float diff = c_cpu[i] - c_gpu[i];
-		float tolerance = 1 / 1000.0;
+		const float tolerance = 0.00001;
 		if (diff > tolerance || -diff > tolerance) {
 			std::cout << "Mismatch at index " << i << " ";
 			std::cout << "(CPU Result = " << c_cpu[i] << ", GPU result = " << c_gpu[i] << ", Difference: " << diff << ")";
