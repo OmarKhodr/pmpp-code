@@ -59,6 +59,8 @@ int main(int argc, const char *argv[]) {
 		}
 	}
 
+	std::cout << "Execution succeeded!" << std::endl;
+
 	free(a);
 	free(b);
 	free(c_cpu);
