@@ -11,9 +11,11 @@ void matMultKernel(float *A, float *B, float *C, int m, int n, int k) {
 	int j = blockDim.x * blockIdx.x + threadIdx.x;
 	if (i >= m || j >= n) return;
 
+	float res = 0.f;
 	for (int l = 0; l < k; ++l) {
-		C[i * n + j] += A[i * k + l] * B[l * n + j];
+		res += A[i * k + l] * B[l * n + j];
 	}
+	C[i * n + j] = res;
 }
 
 void matMultGpu(float *A_h, float *B_h, float *C_h, int m, int n, int k) {
@@ -49,8 +51,10 @@ void matMultGpu(float *A_h, float *B_h, float *C_h, int m, int n, int k) {
 	gpu_timer.Start();
 
 	dim3 num_threads_per_block(32, 32);
+	// We assign threads to cells of the *output matrix*, which has dimensions
+	// M * N. We take the ceiling division of each block dim.
 	dim3 num_blocks(
-		(k + num_threads_per_block.x - 1) / num_threads_per_block.x,
+		(n + num_threads_per_block.x - 1) / num_threads_per_block.x,
 		(m + num_threads_per_block.y - 1) / num_threads_per_block.y
 	);
 	matMultKernel<<<num_blocks, num_threads_per_block>>>(A_d, B_d, C_d, m, n, k);
