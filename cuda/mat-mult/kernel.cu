@@ -3,8 +3,8 @@
 #include "timer.h"
 #include "cuda_check.h"
 
-// Compute vector sum C = A + B
-// Each thread performs one pair-wise addition
+// Compute matrix multiplication (C = A * B)
+// One thread = one output matrix element
 __global__
 void matMultKernel(float *A, float *B, float *C, int m, int n, int k) {
 	int i = blockDim.y * blockIdx.y + threadIdx.y;
@@ -53,6 +53,7 @@ void matMultGpu(float *A_h, float *B_h, float *C_h, int m, int n, int k) {
 	dim3 num_threads_per_block(32, 32);
 	// We assign threads to cells of the *output matrix*, which has dimensions
 	// M * N. We take the ceiling division of each block dim.
+	// x = columns (N), y = rows (M)
 	dim3 num_blocks(
 		(n + num_threads_per_block.x - 1) / num_threads_per_block.x,
 		(m + num_threads_per_block.y - 1) / num_threads_per_block.y
