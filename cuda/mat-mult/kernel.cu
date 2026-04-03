@@ -52,7 +52,8 @@ void matMultGpu(float *A_h, float *B_h, float *C_h, int m, int n, int k) {
 
 	dim3 num_threads_per_block(32, 32);
 	// We assign threads to cells of the *output matrix*, which has dimensions
-	// M * N. We take the ceiling division of each block dim.
+	// M * N. For each dimension, we calculate the num of blocks by dividing it
+	// by the numb of threads per block, and take the ceiling of that.
 	// x = columns (N), y = rows (M)
 	dim3 num_blocks(
 		(n + num_threads_per_block.x - 1) / num_threads_per_block.x,
