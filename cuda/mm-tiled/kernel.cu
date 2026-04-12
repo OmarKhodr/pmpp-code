@@ -29,7 +29,7 @@ void matMultTiledKernel(float *A, float *B, float *C, int m, int n, int k) {
 
 	for (int tile = 0; tile < k/kTileDim; ++tile) {
   	// Load tile to shared memory
-    if (tile*kTileDim + threadIdx.x < m) {
+    if (tile*kTileDim + threadIdx.x < k) {
       A_s[threadIdx.y][threadIdx.x] = A[i*k + tile*kTileDim + threadIdx.x];
     } else {
       A_s[threadIdx.y][threadIdx.x] = 1.f;
