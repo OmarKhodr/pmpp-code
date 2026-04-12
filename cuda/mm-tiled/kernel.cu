@@ -32,12 +32,12 @@ void matMultTiledKernel(float *A, float *B, float *C, int m, int n, int k) {
     if (tile*kTileDim + threadIdx.x < m) {
       A_s[threadIdx.y][threadIdx.x] = A[i*k + tile*kTileDim + threadIdx.x];
     } else {
-      A_s[threadIdx.y][threadIdx.x] = 0.f;
+      A_s[threadIdx.y][threadIdx.x] = 1.f;
     }
     if (tile*kTileDim + threadIdx.y < k) {
       B_s[threadIdx.y][threadIdx.x] = B[(tile*kTileDim + threadIdx.y) * n + j];
     } else {
-      B_s[threadIdx.y][threadIdx.x] = 0.f;
+      B_s[threadIdx.y][threadIdx.x] = 1.f;
     }
     // Wait for all threads to finish loading shared tile before computing
     __syncthreads();
