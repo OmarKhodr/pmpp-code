@@ -6,3 +6,7 @@
 *.ptx
 *.cubin
 *.fatbin
+
+# C++ output files
+*.o
+*.out

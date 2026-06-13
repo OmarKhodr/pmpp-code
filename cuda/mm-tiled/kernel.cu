@@ -9,6 +9,8 @@ constexpr int kTileDim = 32;
 // Compute matrix multiplication (C = A * B)
 // Dimensions: A (m*k), B (k*n), C (m*n)
 // One thread = one output matrix element
+//
+// Dimensions format: rows*cols
 __global__
 void matMultTiledKernel(float *A, float *B, float *C, int m, int n, int k) {
   __shared__ float A_s[kTileDim][kTileDim];
